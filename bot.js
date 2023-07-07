@@ -39,7 +39,9 @@ bot.action("btn_1", async (ctx) => {
 			"https://www.olx.uz/api/v1/offers?category_id=983"
 		);
 
-		for (let i = 45; i < response.data.data.length; i++) {
+		console.log(response.data.data.length);
+
+		for (let i = 0; i < response.data.data.length; i++) {
 			const element = response.data.data[i];
 
 			if (element.promotion.options.length === 0) {
@@ -71,6 +73,8 @@ bot.action("btn_1", async (ctx) => {
 				let location =
 					element.location.city.name || element.location.region.name;
 
+				let link = element.url;
+
 				// const config = {
 				// 	headers: {
 				// 		Authorization: `Bearer ${TOKEN}`,
@@ -89,12 +93,16 @@ bot.action("btn_1", async (ctx) => {
 				let caption = `${element.title}\n${element.description.replace(
 					/<br\s*\/?>/gm,
 					""
-				)} \n${model}\n${price}\n${year}\n${mileage}\n${type}\n${color}\n${fuel}\n${location}`;
+				)} \n\u{2705}${model}\n\u{1F4B2}${price}\n\u{1F4C5}${year}\n\u{1F4DF}${mileage}\n\u{1F697}${type}\n\u{1F534}${color}\n\u{26FD}${fuel}\n\u{1F6A9}${location}`;
 
 				mediaFiles[0]["caption"] = caption;
 
-				// Send the media group with HTML text
-				await ctx.replyWithMediaGroup(mediaFiles);
+				console.log(caption.length);
+				if (caption.length < 500) {
+					// Send the media group with HTML text
+					await ctx.replyWithMediaGroup(mediaFiles);
+					await ctx.sendMessage(link);
+				}
 			}
 		}
 
