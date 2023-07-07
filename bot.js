@@ -41,7 +41,7 @@ bot.action("btn_1", async (ctx) => {
 
 		console.log(response.data.data.length);
 
-		for (let i = 0; i < response.data.data.length; i++) {
+		for (let i = 40; i < response.data.data.length; i++) {
 			const element = response.data.data[i];
 
 			if (element.promotion.options.length === 0) {
@@ -56,7 +56,7 @@ bot.action("btn_1", async (ctx) => {
 				});
 
 				let model =
-					element.params[0].name + ":" + element.params[0].value.label;
+					element.params[0].name + ":" + "#" + element.params[0].value.label;
 				let price =
 					element.params[1].name + ":" + "$" + element.params[1].value?.value;
 				let year =
@@ -64,14 +64,14 @@ bot.action("btn_1", async (ctx) => {
 				let mileage =
 					element.params[4].name + ":" + element.params[4].value?.label;
 				let type =
-					element.params[5].name + ":" + element.params[5].value?.label;
+					element.params[5].name + ":" + "#" + element.params[5].value?.label;
 				let color =
 					element.params[6].name + ":" + element.params[6].value?.label;
 				let fuel =
 					element.params[8].name + ":" + element.params[8].value?.label;
 
 				let location =
-					element.location.city.name || element.location.region.name;
+					"#" + element.location.city.name || element.location.region.name;
 
 				let link = element.url;
 
@@ -90,10 +90,12 @@ bot.action("btn_1", async (ctx) => {
 
 				// console.log(phoneNumber);
 
-				let caption = `${element.title}\n${element.description.replace(
+				let caption = `\u{1F6A8}${
+					element.title
+				}\n\n${element.description.replace(
 					/<br\s*\/?>/gm,
 					""
-				)} \n\u{2705}${model}\n\u{1F4B2}${price}\n\u{1F4C5}${year}\n\u{1F4DF}${mileage}\n\u{1F697}${type}\n\u{1F534}${color}\n\u{26FD}${fuel}\n\u{1F6A9}${location}`;
+				)} \n\n\u{2705}${model}\n\u{1F4B2}${price}\n\u{1F4C5}${year}\n\u{1F4DF}${mileage}\n\u{1F697}${type}\n\u{1F534}${color}\n\u{26FD}${fuel}\n\u{1F6A9}${location}`;
 
 				mediaFiles[0]["caption"] = caption;
 
